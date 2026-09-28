@@ -9,16 +9,16 @@ public class CameraMovement : MonoBehaviour
 
     float yRotation;
     float xRotation;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
-    // Update is called once per frame
     private void Update()
     {
+        if (Time.timeScale == 0f) return;
+
         if (Input.GetMouseButtonDown(0))
             Cursor.lockState = CursorLockMode.Locked;
 
