@@ -1,7 +1,7 @@
 using UnityEngine;
 using static UnityEngine.Audio.GeneratorInstance;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IInteractable
 {
     public bool isLocked = false;
     public bool onlyOpensFromInside = false; 

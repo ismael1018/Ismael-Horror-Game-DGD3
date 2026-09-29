@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Shooting : MonoBehaviour
@@ -5,40 +6,60 @@ public class Shooting : MonoBehaviour
     public Camera playerCamera;
     public float range = 100f;
     public AudioClip gunSound;
-    AudioSource AudioSource;
+    public AudioClip emptySound;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public int ammo = 10;
+    public TextMeshProUGUI ammoText;
+
+    AudioSource audioSource;
+
     void Start()
     {
-        AudioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
+        UpdateAmmoUI();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (Time.timeScale == 0f) return;
 
         if (Input.GetMouseButtonDown(0))
-        {
             Shoot();
-        }
     }
-
     void Shoot()
     {
-        AudioSource.PlayOneShot(gunSound);
+        if (ammo <= 0)
+        {
+            if (emptySound != null)
+                audioSource.PlayOneShot(emptySound);
+            return;
+        }
+
+        ammo--;
+        UpdateAmmoUI();
+
+        if (gunSound != null)
+            audioSource.PlayOneShot(gunSound);
 
         RaycastHit hit;
 
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range))
         {
-
-
             Enemyhealth enemy = hit.transform.GetComponent<Enemyhealth>();
             if (enemy != null)
-            {
                 enemy.TakeDamage();
-            }
         }
     }
+
+    public void AddAmmo(int amount)
+    {
+        ammo += amount;
+        UpdateAmmoUI();
+    }
+
+    void UpdateAmmoUI()
+    {
+        if (ammoText != null)
+            ammoText.text = "Ammo: " + ammo;
+    }
 }
+    

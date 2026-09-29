@@ -67,4 +67,13 @@ public class PlayerHealth : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
+
+    public void Heal(int amount)
+    {
+        health += amount;
+        health = Mathf.Min(health, maxHealth);
+
+        if (healthSlider != null)
+            healthSlider.value = health;
+    }
 }
