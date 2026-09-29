@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Gamemanager : MonoBehaviour
 {
     public static Gamemanager instance;
+
 
     public int kills;
     public TextMeshProUGUI killText;
@@ -32,4 +34,5 @@ public class Gamemanager : MonoBehaviour
         kills++;
         killText.text = "kills: " + kills;
     }
+
 }
